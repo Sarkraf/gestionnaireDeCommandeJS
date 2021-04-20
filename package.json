@@ -2,10 +2,12 @@
   "name": "tryjs",
   "version": "1.0.0",
   "description": "systeme qui permet commandes des menus et afficher un historique des commandes",
-  "main": "gestionDeCommandes.js",
+  "main": "main.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node gestionDeCommandes.js"
+    "start": "node main.js"
+  
   },
   "author": "Sarkraf",
   "license": "ISC"
