@@ -18,9 +18,39 @@ class Commande {
         this.sauces = sauces;
         this.supplements = supplements;
         this.drink = drink;
-        this.total = this.defineFinalPrice();
+        this.total = this.defineFinalPrice() + " €";
         this.checkNumberMeatsOk();
         this.checkNumberSaucesOk();
+        this.neverRepeatChoiceSupplements();
+        this.neverRepeatChoiceSauces();
+        this.neverRepeatChoiceMeats();
+    }
+
+    neverRepeatChoiceSupplements() {
+        for (let i = 0; i < this.supplements.length; i++) {
+            if (this.supplements.indexOf(this.supplements[i]) != this.supplements.lastIndexOf(this.supplements[i])) {
+                throw "You can't choice twice the same supplements";
+            }
+        }
+
+    }
+
+    neverRepeatChoiceSauces() {
+        for (let i = 0; i < this.sauces.length; i++) {
+            if (this.sauces.indexOf(this.sauces[i]) != this.sauces.lastIndexOf(this.sauces[i])) {
+                throw "You can't choice twice the same sauces";
+            }
+        }
+
+    }
+    
+    neverRepeatChoiceMeats() {
+        for (let i = 0; i < this.meats.length; i++) {
+            if (this.meats.indexOf(this.meats[i]) != this.meats.lastIndexOf(this.meats[i])) {
+                throw "You can't choice twice the same meats";
+            }
+        }
+
     }
 
     checkNumberMeatsOk() {
@@ -56,7 +86,7 @@ class Commande {
     }
 
     checkNumberSaucesOk() {
-        if (this.sauces.length > 2 ){
+        if (this.sauces.length > 2) {
             throw 'To many differents sauces';
         }
     }
@@ -64,7 +94,7 @@ class Commande {
     defineFinalPrice() {
 
         let result = sizesAndPrices[this.size];
-        result += (this.supplements != 'None') ? 1 : 0;
+        result += (this.supplements != ['None']) ? this.supplements.length : 0;
         if (this.drink != 'None') {
             result += (this.drink == 'Vittel') ? 0.5 : 1;
         }
@@ -91,12 +121,23 @@ function generateRandomMeatsArray(inputSize) {
 }
 
 function generateRandomSaucesArray() {
-        let saucesArray = [];
-        const numberSauces = 2;
-        for (let i = 0; i < numberSauces; i++) {
-            saucesArray.push(sauces[generateRandomNumber(6)]);
+    let saucesArray = [];
+    const numberSauces = 2;
+    for (let i = 0; i < numberSauces; i++) {
+        saucesArray.push(sauces[generateRandomNumber(6)]);
+    }
+    return saucesArray;
+}
+
+function generateRandomSupplementsArray() {
+    let supplementsArray = [];
+    let numbersupplements = generateRandomNumber(5);
+    if (numbersupplements != 0) {
+        for (let i = 0; i < numbersupplements; i++) {
+            supplementsArray.push(supplements[generateRandomNumber(4)]);
         }
-        return saucesArray;
+    } else supplementsArray.push(supplements[4]);
+    return supplementsArray;
 }
 
 function generateMockCommande() {
@@ -107,21 +148,16 @@ function generateMockCommande() {
 
     const inputDrink = drinks[generateRandomNumber(6)];
 
-    const inputSupplement = supplements[generateRandomNumber(5)];
+    const inputSupplement = generateRandomSupplementsArray();
 
     return new Commande(inputSize, inputMeats, inputSauces, inputSupplement, inputDrink);
 }
 
-console.log(generateMockCommande());
-// let commandes = [];
-
-// commandes = commandes.map(element => {
-//     try {
-//         return new Commande(inputSize, inputMeats, inputSauce1, supplements[inputSupplement], drinks[inputDrink]);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// });
-// console.log(commandes);
-//let commande1 = new Commande(inputSize, inputMeats, inputSauce1, supplements[inputSupplement], drinks[inputDrink])
-//let commande2 = new Commande(inputSize, inputMeats, inputSauce1, supplements[inputSupplement], drinks[inputDrink])
+for (let i = 0; i < 100; i++) {
+    try {
+        console.log(generateMockCommande());
+    } catch (error) {
+        console.error(error);
+    }
+    
+}
