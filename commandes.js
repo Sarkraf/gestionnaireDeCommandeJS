@@ -94,7 +94,7 @@ export class Commande {
     defineFinalPrice() {
 
         let result = sizesAndPrices[this.size];
-        result += (this.supplements != ['None']) ? this.supplements.length : 0;
+        result += (this.supplements != supplements[4]) ? this.supplements.length : 0;
         if (this.drink != 'None') {
             result += (this.drink == 'Vittel') ? 0.5 : 1;
         }

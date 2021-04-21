@@ -24,9 +24,9 @@ function generateRandomSaucesArray() {
 
 function generateRandomSupplementsArray() {
     let supplementsArray = [];
-    let numbersupplements = generateRandomNumber(5);
-    if (numbersupplements != 0) {
-        for (let i = 0; i < numbersupplements; i++) {
+    let numberSupplements = generateRandomNumber(5);
+    if (numberSupplements != 0) {
+        for (let i = 0; i < numberSupplements; i++) {
             supplementsArray.push(supplements[generateRandomNumber(4)]);
         }
     } else supplementsArray.push(supplements[4]);
