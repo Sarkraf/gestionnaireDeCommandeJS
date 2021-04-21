@@ -19,6 +19,10 @@ export class Commande {
         this.supplements = supplements;
         this.drink = drink;
         this.total = this.defineFinalPrice() + " €";
+        this.checkFieldsValidity()
+    }
+
+    checkFieldsValidity() {
         this.checkNumberMeatsOk();
         this.checkNumberSaucesOk();
         this.neverRepeatChoiceSupplements();
@@ -94,7 +98,7 @@ export class Commande {
     defineFinalPrice() {
 
         let result = sizesAndPrices[this.size];
-        result += (this.supplements != supplements[4]) ? this.supplements.length : 0;
+        result += (!this.supplements.includes('None')) ? this.supplements.length : 0;
         if (this.drink != 'None') {
             result += (this.drink == 'Vittel') ? 0.5 : 1;
         }
